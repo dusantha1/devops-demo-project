@@ -49,15 +49,14 @@ pipeline {
         }
         steps {
           withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-    sh '''
-        git config user.email "dusanthasampath095@gmail.com"
-        git config user.name "${GIT_USER}"
-        sed -i "s/tag: .*/tag: \\"${build_version}\\"/" helm/app/values.yaml
-        git add helm/app/values.yaml
-        git commit -m "Update deployment image to version ${build_version}"
-        git push https://${GIT_USER}:${GIT_TOKEN}@github.com/dusantha1/devops-demo-project HEAD:main
-    '''
-            }
+          sh '''
+          git config user.email "dusanthasampath095@gmail.com"
+          git config user.name "${GIT_USER}"
+          sed -i "s/tag: .*/tag: \\"${build_version}\\"/" helm/app/values.yaml
+          git add helm/app/values.yaml
+          git commit -m "Update deployment image to version ${build_version}"
+          git push https://${GIT_USER}:${GIT_TOKEN}@github.com/dusantha1/devops-demo-project HEAD:main
+            '''
             }
         }
     }
